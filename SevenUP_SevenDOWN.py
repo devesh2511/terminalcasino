@@ -1,5 +1,7 @@
+import Terminal_Casinogame
 import random
-# START MENUE
+# START MENU
+
 print(" ")
 print(" ~~GET THE FEEL OF CASINO AT YOUR TERMINAL.. TRY HACKING IT!!~~")
 print("         THE GAMBLING BOT      ")
@@ -30,9 +32,21 @@ game_on=True
 
 
 while game_on:
-    Money=int(input("Enter the amount of money you would like to bid:"))
+    money_to_bet=0
+    while money_to_bet <= 0 or money_to_bet > total_money:
+        money_to_bet = input("\nWhat is your stake?")
+        try:
+            money_to_bet = int(money_to_bet)
+        except ValueError:
+            print("you did not choose your stake.")
+        if money_to_bet <= 0:
+            print("The bet is negative or zero.")
+        if money_to_bet > total_money:
+            print("You don't have enough money. You have", total_money)
+
+    total_money-=money_to_bet
     print("Choose any one Category from the below three as 'r-for red' or 'd- for diamond' or 'b- for black' ")
-    print(" g) RED  \n d) DIAMOND \n s) BLACK")
+    print(" r) RED  \n d) DIAMOND \n b) BLACK")
     r="Category RED"
     d="Category DIAMOND"
     b="Category BLACK"
@@ -50,22 +64,26 @@ while game_on:
     if options== "r" or options=="R":
       if number <= 6:
 
-            print("YAY!! Your Money is Doubled!!:" ,Money*2)
+            print("YAY!! Your Money is Doubled!!:" ,money_to_bet*2)
+            total_money =total_money + money_to_bet*2
       else:
-             print("OOPS! Your Money is Lost :" ,Money*0)
+             print("OOPS! Your Money is Lost :" ,money_to_bet*0)
 
     if(options=="d" or options=="D"):
      if(number==7):
-          print("YAY!! Your Money is Doubled:" ,Money*3)
+          print("YAY!! Your Money is Tripled:" ,money_to_bet*3)
+          total_money =total_money + money_to_bet*3
      else:
-          print("OOPS! Your Money is Lost:" ,Money*0)
+          print("OOPS! Your Money is Lost:" ,money_to_bet*0)
 
     if(options=="b" or options=="B"):
      if(7<number<=12):
-          print("YAY!! Your money is Doubled:" ,Money*2)
+          print("YAY!! Your money is Doubled:" ,money_to_bet*2)
+          total_money =total_money + money_to_bet*2
      else:
-          print("OOPS! Your money is Lost:" ,Money*0)
+          print("OOPS! Your money is Lost:" ,money_to_bet*0)
 
+    print("\n ~~Your wallet contains", total_money, "$")
     quitter = input("\nDo you want to quit the game(y/n)?")
     if quitter == 'n' or quitter == 'N':
         game_on = True
